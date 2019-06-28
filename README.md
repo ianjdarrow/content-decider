@@ -40,6 +40,7 @@ and returning messages in the format
 ```
 
 > TODO: Additional detail on message formats.
+
 > TODO: Example of a simple `content-decider` service.
 
 When one or more `content-deciders` is specified, IPFS automatically verifies each CID with each `content-decider` before adding the file to the repo.
@@ -49,6 +50,7 @@ When one or more `content-deciders` is specified, IPFS automatically verifies ea
 As additional relevant content is discovered, a `denylist` may be updated. `content-deciders` should implement a strategy for periodically updating
 
 > TODO: Figure out efficient strategy for denylist updates.
+
 > TODO: Figure out efficient strategy for checking all files in a repo against updated denylists.
 
 ## Further standardization
