@@ -2,16 +2,18 @@
 
 The IPFS protocol is strictly content-neutral and does not make judgments about what types of data people should be able to store or share. However, IPFS should also support users' ability to make informed decisions about which types content they choose to store or serve. These decisions might be based on personal preferences or legal requirements – whatever the reasons, this proposal aims to make it easy to:
 
-- subscribe to lists of content (a `denylist`) you prefer not to store or serve
+- create a standardized format for arbitrary lists of content some set of node operators might prefer not to store or serve (`denylists`)
 - check files against a `content-decider`, which is essentially service operating as a a denylist aggregator, before deciding whether to add the files to your repo
 
-A `denylist` could be a list of anything, and denylists are generated and maintained by users, not by the IPFS project. Opting into any `denylist` is purely voluntary.
+A `denylist` could be a list of anything, and `denylists` are generated and maintained by users, not by the IPFS project. Opting into any `denylist` is purely voluntary.
 
 ## The content-decider specification
 
-Denylists are, unsurprisingly, lists of denied content. It's a Bad Idea to maintain a central list of CIDs of bad content, so denylist entries are instead the sha256 multihash\* _(ID: implementation detail, you tell me)_ of the denied content's CID.
+Denylists are simple lists of denied content. It's a Bad Idea to maintain a central list of CIDs of bad content, so denylist entries are instead the sha256 multihash\* _(ID: implementation detail, you tell me)_ of the denied content's CID.
 
-A node operator may add one or more `content-decider`s to a list stored in `~/.ipfs/config.Experimental.ContentDeciders`. Each `content-decider` is an object:
+> TODO: Discuss more optimized data structures for denylists
+
+A node operator may add one or more `content-decider`s to a list stored in `~/.ipfs/config.Experimental.ContentDeciders`. `content-deciders` are added as objects:
 
 ```
 {
@@ -43,7 +45,7 @@ and returning messages in the format
 
 > TODO: Example of a simple `content-decider` service.
 
-When one or more `content-deciders` is specified, IPFS automatically verifies each CID with each `content-decider` as a pre-execution hook before adding the file to the repo.
+When one or more `content-deciders` is specified, IPFS automatically adds a pre-execution hook to verify any proposed CID with each `content-decider` before adding the file to the repo.
 
 > TODO: Figure out where in IPFS this should live.
 
