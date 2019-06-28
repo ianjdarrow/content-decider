@@ -2,8 +2,8 @@
 
 The IPFS protocol is strictly content-neutral and does not make judgments about what types of data people should be able to store or share. However, IPFS should also support users' ability to make informed decisions about which types content they choose to store or serve. These decisions might be based on personal preferences or legal requirements – whatever the reasons, this proposal aims to make it easy to:
 
-- subscribe to lists of content (`denylist`s) you prefer not to store or serve
-- check files against a `content-decider`, which is essentially a denylist aggregator, before deciding whether to add the files to your repo
+- subscribe to lists of content (a `denylist`) you prefer not to store or serve
+- check files against a `content-decider`, which is essentially service operating as a a denylist aggregator, before deciding whether to add the files to your repo
 
 A `denylist` could be a list of anything, and denylists are generated and maintained by users, not by the IPFS project. Opting into any `denylist` is purely voluntary.
 
@@ -21,7 +21,7 @@ A node operator may add one or more `content-decider`s to a list stored in `~/.i
 }
 ```
 
-`content-deciders` make decisions on content by receiving messages in the format:
+At a practical level, a `content-decider` is a persistent service that tells you whether you should add a file to your repo. A `content-decider` makes decisions about content by receiving messages in the format:
 
 ```
 {
@@ -43,11 +43,13 @@ and returning messages in the format
 
 > TODO: Example of a simple `content-decider` service.
 
-When one or more `content-deciders` is specified, IPFS automatically verifies each CID with each `content-decider` before adding the file to the repo.
+When one or more `content-deciders` is specified, IPFS automatically verifies each CID with each `content-decider` as a pre-execution hook before adding the file to the repo.
+
+> TODO: Figure out where in IPFS this should live.
 
 ## Updating denylists
 
-As additional relevant content is discovered, a `denylist` may be updated. `content-deciders` should implement a strategy for periodically updating
+As additional relevant content is discovered, a `denylist` may be updated. `content-deciders` should implement a strategy for periodic updates.
 
 > TODO: Figure out efficient strategy for denylist updates.
 
