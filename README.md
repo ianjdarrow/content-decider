@@ -23,7 +23,7 @@ A node operator may add one or more `content-decider`s to a list stored in `~/.i
 }
 ```
 
-At a practical level, a `content-decider` is a persistent service that tells you whether you should add a file to your repo. A `content-decider` makes decisions about content by receiving messages in the format:
+At a practical level, a `content-decider` is a persistent process that tells you whether you should add a file to your repo. A `content-decider` makes decisions about content by receiving messages in the format:
 
 ```
 {
@@ -43,7 +43,7 @@ and returning messages in the format
 
 > TODO: Additional detail on message formats.
 
-> TODO: Example of a simple `content-decider` service.
+> TODO: Example of a simple `content-decider` process.
 
 When one or more `content-deciders` is specified, IPFS automatically adds a pre-execution hook to verify any proposed CID with each `content-decider` before adding the file to the repo.
 
@@ -59,4 +59,4 @@ As additional relevant content is discovered, a `denylist` may be updated. `cont
 
 ## Further standardization
 
-In the future, it may be desirable to further standardize the interface for denylist operations so they can be added directly to IPFS without the user running a separate service. For example, a user might run `ipfs denylist add pasta_sauce_recipes_that_use_sugar` and the IPFS daemon would transparently handle fetching and updating the relevant `denylist` and checking content against it.
+In the future, it may be desirable to further standardize the interface for denylist operations so they can be added directly to IPFS without the user running a separate process. For example, a user might run `ipfs denylist add pasta_sauce_recipes_that_use_sugar` and the IPFS daemon would transparently handle fetching and updating the relevant `denylist` and checking content against it.
